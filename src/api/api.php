@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
         X-CSRF-Token,Authorization");
     exit(0);
 }
+
 $res = array('error' => false);
 $action="";
 if(isset($_GET['action'])){
@@ -32,8 +33,8 @@ if($action == 'addcomment'){
     else{
         $res['message'] = 'Error!';
     }
-
 }
+
 if($action == 'getcomments'){
     $sql = "SELECT * FROM `comments`";
     $result = $connect->query($sql);
@@ -52,8 +53,6 @@ if($action == 'getcomments'){
     }
 }
 
-
-
 if($action == 'deletecomment'){
     $del = $_GET['id'];
     $sql="DELETE FROM comments WHERE id=$del";
@@ -64,11 +63,7 @@ if($action == 'deletecomment'){
     else{
         $res['message']= "Ошибка удаления";
     }
-
-
 }
 $connect->close();
-header("Content-type: application/json");
-echo json_encode($res);
 die();
 ?>
